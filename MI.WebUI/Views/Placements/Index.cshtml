@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Placements";
+}
+<h2>Placements</h2>
+<script type="text/javascript">
+    jQuery(document).ready(function () 
+    {
+ 
+        
+        jQuery("#list")
+        .jqGrid
+        ({
+            url: '/Placements/DynamicGridData/',
+            //editurl: '/Placements/Update',
+            datatype: 'json',
+            mtype: 'POST',
+            
+            //  { name: 'PUBLISHER_NAME', index: 'PUBLISHER_NAME', width: 150, align: 'left', searchoptions: { sopt: ['eq', 'ne', 'cn']}, editable: true, edittype: 'select', editoptions: { dataUrl: '/Placements/PublishersCombo' } },
+            colNames: ['OID_MEDIA_CAT_DIGITAL_PLCMNT',  'Genre', 'Plan Name', 'Publisher Id','Publisher Name', 'Placement Name', 'Placement Code', 'Begin Date', 'End Date', 'Cost'],
+           
+           colModel: [
+          { name: 'OID_MEDIA_CAT_DIGITAL_PLCMNT', index: 'OID_MEDIA_CAT_DIGITAL_PLCMNT', width: 100, align: 'left', searchoptions: { sopt: ['eq', 'ne', 'gt', 'lt' ]},   key: true,editable: false, editrules: { edithidden: true }, hidedlg: true, hidden: true  },
+          { name: 'MEDIA_GENRE', index: 'MEDIA_GENRE', width: 60, align: 'left', searchoptions: { sopt: ['eq', 'ne', 'cn']}, editable: true },
+          { name: 'MEDIA_PLAN_NAME', index: 'MEDIA_PLAN_NAME', width: 200, align: 'left', searchoptions: { sopt: ['eq', 'ne', 'cn']}, editable: true },
+          { name: 'OID_PUBLISHER_ID', index: 'OID_PUBLISHER_ID', width: 30, align: 'left', searchoptions: { sopt: ['eq', 'ne', 'cn']}, editable: true, edittype: 'select', editoptions: { dataUrl: '/Placements/PublishersCombo' }  },
+          { name: 'PUBLICATION_NETWORK', index: 'PUBLICATION_NETWORK', width: 140, align: 'left', searchoptions: { sopt: ['eq', 'ne', 'cn']}, editable: false },
+          { name: 'PLACEMENT_NAME', index: 'PLACEMENT_NAME', width: 220, align: 'left', searchoptions: { sopt: ['eq', 'ne', 'cn']}, editable: true },
+          { name: 'PLACEMENT_CODE', index: 'PLACEMENT_CODE', width: 300, align: 'left', searchoptions: { sopt: ['eq', 'ne', 'cn']}, editable: true },
+          { name: 'BEGIN_DATE', index: 'BEGIN_DATE', width: 60, align: 'right', searchoptions:{sopt:['eq', 'ne','gt', 'lt']}, editable: true, edittype: 'text', editrules: { required: true }, formoptions: { elmsuffix: ' *'} },
+          { name: 'END_DATE', index: 'END_DATE', width: 60, align: 'right', searchoptions:{sopt:['eq', 'ne','gt', 'lt']}, editable: true, edittype: 'text', editrules: { required: true }, formoptions: { elmsuffix: ' *'} },
+          { name: 'COST', index: 'COST', width: 40, align: 'right', searchoptions: { sopt: ['eq', 'ne', 'gt', 'lt' ]}, editable: true}],
+          
+
+            pager: jQuery('#pager'),
+            rowNum: 20,
+            rowList: [5, 10, 20, 50],
+            sortname: 'BEGIN_DATE',
+            sortorder: "asc",
+            viewrecords: true,
+            imgpath: '',
+            caption: 'Placements',
+            height: '100%',
+           // onSelectRow: function (id) {
+          // var row = $('#grid').getRowData(id);
+            //GetInfo(row['Computer_Name'], row['Computer_IP']);
+            // }
+
+            subGrid: true,
+            //subrid model
+            subGridModel: [{
+                //subgrid columns names
+                name: ['Placement Code', 'Clicks', 'Impressions', 'Network'],
+                //subgrid columns widths
+                width: [200, 100, 100, 100],
+                //subrig columns aligns
+                align: ['left', 'left', 'left', 'left']
+            }],
+            //url from which subgrid data should be requested
+            subGridUrl: '/Placements/SubGridData/'
+
+        }).navGrid('#pager', { view: true, del: true, add: true, edit: true },
+           {width:600,  url: '/Placements/Update', closeAfterEdit: true}, // default settings for edit
+           {width:600,  url: '/Placements/Insert', closeAfterAdd: true}, // default settings for add
+           {url: '/Placements/Delete/' }, // delete instead that del:false we need this
+       
+
+           {closeOnEscape: true, multipleSearch: true, closeAfterSearch: true, width:600 }, // search options
+           {} /* view parameters*/
+         );
+        
+    });
+  
+</script>
+<div class="column span-24">
+       <table id="list" class="scroll" cellpadding="0" cellspacing="0">
+    </table>
+    <div id="pager" class="scroll" style="text-align: center;">
+    </div>
+</div>
+
