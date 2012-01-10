@@ -20,6 +20,8 @@ Features
 7.Highly influenced by the many creative ideas of Rob Conery , the creator of Massive, especially the ideas presented in his screencasts Real World MVC. Do invest $32 and watch the series. It will do you good.http://tekpub.com/productions/mvc3
 
 
+8. Security: add attribute [RequireSecurity] on a controller method to enable security. Uses a local table (users) and bypasses the ASP.NET membership database. Look at these files under 	Intrastructure folder: FormsAuthTokenStore, RequireSecurityAttribute. Ninject injects FormsAuthTokenStore--> look at App_Start/NinjectMVC3.cs/ RegisterServices method.
+
 This is my attempt to give something back to the developer community for all the help I have received… everything is freely available under the BSD source license, which is documented in the read me. Please let me know if you find a use for framework in your app.
 
 Fork it and improve so that the community has a full featured MVC JGrid in one place.

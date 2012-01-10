@@ -15,6 +15,12 @@
     @Assets.jgrid("south-street")
     @Assets.CSS("mi.css")
     @Assets.CSS("menu.css")
+
+    @*for knockout.js*@
+
+    @Assets.Script("knockout-2.0.0.js")
+    @Assets.Script("knockout.mapping.js")
+    @Assets.Script("sammy-latest.min.js")
 </head>
 <body>
     <div class="container">
@@ -25,7 +31,10 @@
                 <ul id="mainNav">
                     <li><a id="home" href="/">Home</a></li>
                  
-                    <li>@Html.ActionLink("Placements", "Index", "Placements")</li>
+                    <li>@Html.ActionLink("Nested Grid", "Index", "Placements")</li>
+                    <li>@Html.ActionLink("Passing QueryString", "Index", "QueryString")</li>
+                    <li>@Html.ActionLink("Show Hide", "Index", "ShowHide")</li>
+
                      <li>@Html.ActionLink("Publishers", "About", "Home")</li>
                    
                    

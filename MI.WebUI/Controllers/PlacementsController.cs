@@ -15,15 +15,21 @@ using MI.Domain.jGridHelpers;
 using MI.Domain.Models;
 using Massive;
 using System.Dynamic;
+using System.Web.Script.Serialization;
+using MI.Web.Infrastructure;
+using MI.Web.Controllers;
+using VidPub.Web.Infrastructure;
+
 namespace MI.WebUI.Controllers
 {
-    public class PlacementsController : Controller
+    public class PlacementsController : ApplicationController
     {
 
 
         DynamicModel tbl = new Placements();
 
 
+        public PlacementsController(ITokenHandler tokenStore) : base(tokenStore) { }
 
 
         public PlacementsController()
@@ -32,6 +38,12 @@ namespace MI.WebUI.Controllers
         }
 
 
+
+        //Enable [RequireSecurity] attribute to enable authentication
+        //Uses these files under Intrastructure folder: FormsAuthTokenStore, RequireSecurityAttribute
+        //Ninject injects FormsAuthTokenStore--> look at App_Start/NinjectMVC3.cs/ RegisterServices method
+
+       // [RequireSecurity]
         public ActionResult Index()
         {
             return View();
@@ -80,88 +92,7 @@ namespace MI.WebUI.Controllers
             return field_values;
         }
 
-        //this is a delagate passed in to the SearchHelper. Each grid will want to display different columns-- you define the shape of the grid row here.
-        //private static List<string> xxShapeGridRow(dynamic result)
-        //{
-        //    List<string> s = new List<string>();
-
-
-        //    string a = "";
-        //    string b = "";
-        //    string c = "";
-        //    string d = "";
-        //    string e = "";
-        //    string f = "";
-        //    string g = "";
-        //    string h = "";
-        //    string i = "";
-        //    string j = "";
-
-        //    if (result.OID_MEDIA_CAT_DIGITAL_PLCMNT != null)
-        //    {
-        //        a = result.OID_MEDIA_CAT_DIGITAL_PLCMNT.ToString();
-
-        //    }
-
-        //    if (result.MEDIA_GENRE.ToString() != null)
-        //    {
-        //        b = result.MEDIA_GENRE.ToString().ToString();
-
-        //    }
-
-        //    if (result.MEDIA_PLAN_NAME != null)
-        //    {
-        //        c = result.MEDIA_PLAN_NAME.ToString();
-
-        //    }
-
-        //    if (result.OID_PUBLISHER_ID != null)
-        //    {
-        //        d = result.OID_PUBLISHER_ID.ToString();
-
-        //    }
-
-        //    if (result.PUBLICATION_NETWORK != null)
-        //    {
-        //        e = result.PUBLICATION_NETWORK.ToString();
-
-        //    }
-
-        //    if (result.PLACEMENT_NAME != null)
-        //    {
-        //        f = result.PLACEMENT_NAME.ToString();
-
-        //    }
-        //    if (result.PLACEMENT_CODE != null)
-        //    {
-        //        g = result.PLACEMENT_CODE.ToString();
-
-        //    }
-
-        //    if (result.BEGIN_DATE != null)
-        //    {
-        //        h = Formatdate((result.BEGIN_DATE.ToString()));
-
-        //    }
-
-        //    if (result.END_DATE != null)
-        //    {
-        //        i = Formatdate(result.END_DATE.ToString());
-
-        //    }
-        //    if (result.COST != null)
-        //    {
-        //        j = result.COST.ToString();
-
-        //    }
-
-
-
-
-        //    s = new List<string>() { a, b, c, d, e, f, g, h, i, j };
-
-        //    return s;
-        //}
+    
         //------ Sub Grid------------
         public JsonResult SubGridData(string id)
         {
@@ -340,6 +271,42 @@ namespace MI.WebUI.Controllers
             return dtret;
 
         }
+
+        //------For displaying Stats-----------
+
+        [HttpGet]
+        public ActionResult GetStats(int id)
+        {
+            //dynamic stats = new List<dynamic>();
+
+            //stats.Add(new ExpandoObject());
+            //stats[0].PLACEMENT_CODE = "Passed In Id: " + id.ToString();
+
+            string s = @"
+                 SELECT     MEDIA_STATISTICS.*
+                FROM         MEDIA_CAT_DIGITAL_PLCMNT INNER JOIN
+                 MEDIA_STATISTICS ON MEDIA_CAT_DIGITAL_PLCMNT.PLACEMENT_CODE 
+                 = MEDIA_STATISTICS.PLACEMENT_CODE
+                and OID_MEDIA_CAT_DIGITAL_PLCMNT =  ";
+
+            s += id.ToString();
+
+
+            IEnumerable<dynamic> stats = tbl.Query(s);
+
+
+            return VidpubJSON(stats);
+        }
+
+        
+        //public ActionResult VidpubJSON(dynamic content)
+        //{
+        //    var serializer = new JavaScriptSerializer();
+        //    serializer.RegisterConverters(new JavaScriptConverter[] { new ExpandoObjectConverter() });
+        //    var json = serializer.Serialize(content);
+        //    Response.ContentType = "application/json";
+        //    return Content(json);
+        //}
 
     }//class
 

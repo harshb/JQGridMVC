@@ -58,6 +58,7 @@
     <Compile Include="Massive.cs" />
     <Compile Include="Models\Publishers.cs" />
     <Compile Include="Models\Placements.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Models\View_Placements_Publications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

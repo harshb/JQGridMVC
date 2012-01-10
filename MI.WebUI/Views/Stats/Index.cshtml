@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<script type="text/JavaScript">
+
+    (function ($) {
+        $.QueryString = (function (a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i) {
+                var p = a[i].split('=');
+                if (p.length != 2) continue;
+                b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+        })(window.location.search.substr(1).split('&'))
+    })(jQuery);
+
+    jQuery(document).ready(function () {
+
+        var id = $.QueryString["id"];
+        //{ mailId: this.params.mailId }
+
+        /*
+        $.getJSON('/Stats/GetData/' + id, null, function (data) {
+
+        $("#searchTemplate").tmpl(data).appendTo("#usernames");
+
+        });
+        */
+        $.getJSON('/Stats/GetData/', { id: id }, function (data) {
+
+            $("#searchTemplate").tmpl(data).appendTo("#usernames");
+
+        });
+    });
+</script>
+
+<h2>Statistics</h2>
+
+
+<script id ="searchTemplate" type = "text/html">
+
+<li class="user">
+  ${Title}  <span class="klout" data-klout-username=${Title} ></span> 
+ </li>
+</script>
+
+
+
+<div class="column span-24">
+   
+    <div id ='usernames'></div>
+
+</div>
+

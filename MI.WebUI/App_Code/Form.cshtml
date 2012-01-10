@@ -22,6 +22,15 @@
     </p>
     
 }
+@helper PasswordRequired(string name, object value = null, string requiredMessage = "Required") {
+    var val = value ?? "";
+    <p>
+        <label>@name *</label>
+        <input type="Password" name="@name" id="@name" value="@val" data-val="true" data-val-required="@requiredMessage" />
+        @ValidationMessage(name)
+    </p>
+    
+}
 @helper TextBoxNumber(string name, object value = null, string numberMessage = "Should be a number") {
     var val = value ?? "";
     <p>

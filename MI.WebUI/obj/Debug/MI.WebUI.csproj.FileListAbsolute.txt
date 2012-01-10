@@ -32,4 +32,14 @@ C:\MIGit\MI.WebUI\bin\MI.Domain.pdb
 C:\MIGit\MI.WebUI\obj\Debug\ResolveAssemblyReference.cache
 C:\MIGit\MI.WebUI\obj\Debug\MI.WebUI.dll
 C:\MIGit\MI.WebUI\obj\Debug\MI.WebUI.pdb
-C:\MIGit\MI.WebUI\bin\EntityFramework.xml
+C:\MIGit\MI.WebUI\bin\Microsoft.Web.Infrastructure.dll
+C:\MIGit\MI.WebUI\bin\Ninject.dll
+C:\MIGit\MI.WebUI\bin\Ninject.Extensions.Conventions.dll
+C:\MIGit\MI.WebUI\bin\Ninject.Web.Mvc.dll
+C:\MIGit\MI.WebUI\bin\WebActivator.dll
+C:\MIGit\MI.WebUI\bin\Ninject.pdb
+C:\MIGit\MI.WebUI\bin\Ninject.xml
+C:\MIGit\MI.WebUI\bin\Ninject.Extensions.Conventions.pdb
+C:\MIGit\MI.WebUI\bin\Ninject.Extensions.Conventions.xml
+C:\MIGit\MI.WebUI\bin\Ninject.Web.Mvc.pdb
+C:\MIGit\MI.WebUI\bin\Ninject.Web.Mvc.xml
