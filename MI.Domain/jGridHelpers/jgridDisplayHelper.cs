@@ -36,10 +36,10 @@ namespace MI.Domain.jGridHelpers
         public JsonResult GetSearchResults(string sidx, string sord, int page, int rows, bool _search, string filters)
         {
             //Placements tbl = new Placements();
-            int pageIndex = Convert.ToInt32(page) - 1;
+            //int pageIndex = Convert.ToInt32(page) - 1;
             int pageSize = rows;
-            int currentPage = pageIndex * pageSize == 0 ? 1 : pageIndex * pageSize;
-
+            //int currentPage = pageIndex * pageSize == 0 ? 1 : pageIndex * pageSize;
+            int currentPage=  Convert.ToInt32(page);
             int totalRecords = tbl.Count();
             int totalPages = (int)Math.Ceiling((float)totalRecords / (float)pageSize);
             jgridFilter searchRules = jgridFilter.Create(filters ?? "");
